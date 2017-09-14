@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_time: 2017-09-14 18:42:38
+  home_team: MyString
+  away_team: MyString
+
+two:
+  start_time: 2017-09-14 18:42:38
+  home_team: MyString
+  away_team: MyString
