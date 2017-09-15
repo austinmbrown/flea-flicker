@@ -11,14 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914224238) do
+ActiveRecord::Schema.define(version: 20170915181316) do
 
   create_table "games", force: :cascade do |t|
-    t.datetime "start_time"
-    t.string   "home_team"
-    t.string   "away_team"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "stattleship_id"
+    t.string   "label"
+    t.string   "score"
+    t.string   "scoreline"
+    t.string   "status"
+    t.integer  "away_team_score"
+    t.integer  "home_team_score"
+    t.integer  "week"
+    t.datetime "kickoff"
+    t.integer  "away_team_id"
+    t.integer  "home_team_id"
+    t.integer  "winning_team_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "location"
+    t.string   "name"
+    t.string   "stattleship_id"
+    t.string   "logo_url"
+    t.integer  "wins"
+    t.integer  "losses"
+    t.integer  "ties"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|
