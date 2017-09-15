@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Games</h1>
+<h3>Week: <%= @week %></h3>
 
 <table>
   <thead>
@@ -8,7 +9,8 @@
       <th>Kickoff</th>
       <th>Home team</th>
       <th>Away team</th>
-      <th colspan="3"></th>
+      <th>Winner</th>
+      <th>Score</th>
     </tr>
   </thead>
 
@@ -18,8 +20,19 @@
         <td><%= game.kickoff %></td>
         <td><%= game.home_team.name %></td>
         <td><%= game.away_team.name %></td>
+        <td><%= game.winning_team.try(:name) %></td>
+        <td><%= game.score %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<% if @week.to_i > 1 %>
+  <%= link_to "Previous week", games_path(week: @week.to_i - 1) %>
+<% end %>
+
+<%= link_to "This week", games_path() %>
+
+<% if @week.to_i < 17 %>
+  <%= link_to "Next week", games_path(week: @week.to_i + 1) %>
+<% end %>
