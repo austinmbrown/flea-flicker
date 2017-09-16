@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Games</h1>
+<h1>Games</h1>
 <h3>Week: <%= @week %></h3>
 
 <table>
@@ -11,6 +11,8 @@
       <th>Away team</th>
       <th>Winner</th>
       <th>Score</th>
+      <th>Pick</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -18,10 +20,26 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= game.kickoff %></td>
-        <td><%= game.home_team.name %></td>
-        <td><%= game.away_team.name %></td>
+        <td>
+          <%= game.home_team.name %>
+          <% unless game.started? || game.user_pick(current_user) || game.week > @current_week %>
+            <%= link_to "Pick", picks_path(game_id: game.id, picked_team_id: game.home_team_id), method: "post" %>
+          <% end %>
+        </td>
+        <td>
+          <%= game.away_team.name %>
+          <% unless game.started? || game.user_pick(current_user) || game.week > @current_week %>
+            <%= link_to "Pick", picks_path(game_id: game.id, picked_team_id: game.away_team_id), method: "post" %>
+          <% end %>
+        </td>
         <td><%= game.winning_team.try(:name) %></td>
         <td><%= game.score %></td>
+        <td><%= game.user_pick(current_user).try(:team_name) %></td>
+        <td>
+          <% if game.user_pick(current_user) && !game.started? %>
+            <%= link_to "Undo pick", pick_path(game.user_pick(current_user)), method: "delete" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
