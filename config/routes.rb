@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :games, only: [:index]
+  resources :picks, only: [:create, :destroy]
   root :to => redirect('/users/sign_in')
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

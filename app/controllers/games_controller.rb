@@ -5,11 +5,12 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
+    @current_week = current_week
     if params[:week]
       @week = params[:week]
       @games = Game.where(week: params[:week])
     else
-      @week = current_week
+      @week = @current_week
       @games = Game.where(week: @week)
     end
   end
