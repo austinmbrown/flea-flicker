@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+<%= link_to "Back to picks", games_path, method: "get" %>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Picks</th>
+      <th>Correct Picks</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.picks.count %></td>
+        <td><%= user.picks.correct.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
