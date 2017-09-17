@@ -16,20 +16,34 @@
   max-width: $max-width;
   // .l-app
   &-app {
-    // Flex container properties
+    // Flex container
     display: flex;
+      // If the header is included in each page,
+      // Flex direction should be column
+      // If the header is a partial separate from the yield
+      // Flex direction should be row, to include the gutters
     flex-flow: column nowrap;
-    // Non-flex layout settings
+    align-items: center;
+    // Non-flex layout
     height: 100vh;
+      // Unset max-width so the lines go to the edges
+      // Again this setup depends on the header being included in each page
+      // If the header is separate, .l-app needs to wrap both header and content
+    max-width: none;
+  }
+  // .l-header
+  &-header {
+    display: flex;
+    max-width: none;
   }
   // .l-navbar
   &-navbar {
-    // Flex properties
-    flex: 0 0 auto;
-    // Flex container properties
+    // Flex container
     display: flex;
     justify-content: space-between;
-    // Non-flex layout properties
+    // Flex
+    flex: 1;
+    // Non-flex layout
     position: relative;
     height: $navbar-height;
     z-index: $z-ui-top;
@@ -37,30 +51,17 @@
     // Styling
     background-color: $color-white;
   }
-  // .l-table
-  &-table {
+  // .l-body
+  &-body {
+    // Non-flex layout
     padding: 0 $l-padding;
-
-    // Modifiers
-    // .l-table--admin
-    &--admin { max-width: none; }
   }
-  // .l-modal
-  &-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: $z-modal;
-    overflow: scroll;
-
-    // Not sure if this needs to be here
-    outline: 0;
-
-    // Modifiers
-    // .l-modal--is-open
-    &--is-open { display: flex; }
+  // .l-paper
+  &-paper {
+    // Non-flex layout
+    padding: $padding;
+    // Styling
+    background-color: $color-white;
+    border: $border $color-dark-blue;
   }
 }
