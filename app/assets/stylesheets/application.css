@@ -12,4 +12,14 @@
  *
  *= require_tree .
  *= require_self
+
+ *= require variables
+
+ *= require lib/normalize
+ *= require lib/layout
+ *= require lib/stripe
+
+ *= require layout/game_selection
+ *= require layout/login
+ *= require layout/rankings
  */

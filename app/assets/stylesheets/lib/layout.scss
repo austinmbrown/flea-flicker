@@ -1,0 +1,66 @@
+@import 'variables';
+
+/**
+ * L
+
+ * A prefix for all high-level layout blocks
+ * specifically:
+ * l-app
+ * l-body
+ * l-content
+ * Any DOM element which is directly nested in l-content
+ */
+
+.l {
+  width: 100%;
+  max-width: $max-width;
+  // .l-app
+  &-app {
+    // Flex container properties
+    display: flex;
+    flex-flow: column nowrap;
+    // Non-flex layout settings
+    height: 100vh;
+  }
+  // .l-navbar
+  &-navbar {
+    // Flex properties
+    flex: 0 0 auto;
+    // Flex container properties
+    display: flex;
+    justify-content: space-between;
+    // Non-flex layout properties
+    position: relative;
+    height: $navbar-height;
+    z-index: $z-ui-top;
+    padding: 0;
+    // Styling
+    background-color: $color-white;
+  }
+  // .l-table
+  &-table {
+    padding: 0 $l-padding;
+
+    // Modifiers
+    // .l-table--admin
+    &--admin { max-width: none; }
+  }
+  // .l-modal
+  &-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: $z-modal;
+    overflow: scroll;
+
+    // Not sure if this needs to be here
+    outline: 0;
+
+    // Modifiers
+    // .l-modal--is-open
+    &--is-open { display: flex; }
+  }
+}
