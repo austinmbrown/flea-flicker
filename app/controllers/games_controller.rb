@@ -5,6 +5,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
+    current_user.picks.unevaluated.each(&:evaluate)
     @current_week = current_week
     if params[:week]
       @week = params[:week]
@@ -35,4 +36,5 @@ class GamesController < ApplicationController
       return if today > last_day || today < first_day
       ((today - first_day)).to_i/7-1
     end
+
 end
