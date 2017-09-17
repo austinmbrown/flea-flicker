@@ -1,0 +1,113 @@
+/**
+ * COLORS
+
+ * Color variables for branding
+ * This is about 25% done as of 2017-02-22
+ * Should include every brand color used in the product
+ */
+$color-black       :      #0A0A0A;
+$color-dark-gray   :      #373737; // Undefined
+$color-medium-gray :      #B6C7CC; // Undefined
+$color-neutral-gray:      #AFAFAF;
+$color-light-gray  :      #E0EAED; // Undefined
+$color-white       :      #FCFEFF;
+
+$color-red         :      #B1012F;
+$color-orange      :      #FCC853; // Undefined
+$color-yellow      :      #EFC300;
+$color-green       :      #0000FF; // Undefined
+$color-blue        :      #428FC1;
+$color-dark-blue   :      #0C204F;
+
+$background        :  $color-blue;
+$midground         : $color-white;
+$foreground        : $color-black;
+
+$color-shadow  : rgba(0,0,0,0.25);
+
+/**
+ * NON-COLOR VARIABLES
+
+ * Variables for system-wide non-color aesthetics
+ */
+
+$padding       :         20px;
+$l-padding     : $padding * 2;
+$max-width     :       1200px;
+
+$border        :    4px solid;
+$border-focused:   12px solid; 
+$navbar-height :        125px;
+$input-height  :         36px;
+$button-height :         60px;
+
+$box-shadow-surround: 0px 8px 16px 0px rgba($color-black, 0.4);
+
+/**
+ * FONTS
+
+ *
+ */
+
+$font-proxima-nova                : 'proxima-nova', sans-serif;
+$font-proxima-nova-condensed      : 'proxima-nova-condensed', sans-serif;
+$font-proxima-nova-extra-condensed: 'proxima-nova-extra-condensed', sans-serif;
+$font-league-gothic               : 'league-gothic', sans-serif;
+
+$handegg-text        : $font-league-gothic;
+$app-text            : $font-proxima-nova;
+$condensed-text      : $font-proxima-nova-condensed;
+$extra-condensed-text: $font-proxima-nova-extra-condensed;
+
+// @import url('https://fonts.googleapis.com/css?family=Roboto');
+// $font-roboto: 'Roboto', sans-serif;
+
+// @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:200,300,400,600,900');
+// $font-roboto-slab: 'Roboto Slab', serif;
+
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans:200,400,600,700,800');
+// $font-open-sans: 'Open Sans', sans-serif;
+
+
+/**
+ * FONT-SIZES
+
+ * Always use these variables when sizing type. Sizing font icons are
+ * the only exception since they may require more detailed sizing.
+ */
+
+$fs-tiny       : 12px; // Not in design
+$fs-mega-small : 14px; // Not in design
+$fs-extra-small: 24px;
+$fs-small      : 28px;
+$fs-medium     : 32px;
+$fs-large      : 64px;
+$fs-extra-large: 72px;
+$fs-mega-large : 64px; // Not in design
+$fs-hero       : 72px; // Not in design
+
+/**
+ * Z-INDICES
+
+ * Always use these variables when declaring z-index values.
+ */
+
+$z-hidden   : -1;
+$z-base     :  0;
+$z-ui-bottom:  1;
+$z-ui-middle:  2;
+$z-ui-top   :  3;
+$z-overlay  :  4;
+$z-modal    :  5;
+$z-testing  :  6;
+
+/**
+ * BREAKPOINTS
+
+ * Used for media queries
+ */
+
+$b-phone     :  600px;
+$b-tablet    :  780px;
+$b-large     : 1152px;
+$b-impossible: 9001px;
