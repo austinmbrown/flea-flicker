@@ -19,18 +19,15 @@ namespace :games do
 
     games_response.each do |stattleship_game|
       game = Game.find_by_stattleship_id(stattleship_game.id)
-
-      if game.status != "closed"
-        game.update(
-          score: stattleship_game.score,
-          scoreline: stattleship_game.scoreline,
-          status: stattleship_game.status,
-          away_team_score: stattleship_game.away_team_score,
-          home_team_score: stattleship_game.home_team_score,
-          winning_team_id: Team.find_by(stattleship_id: stattleship_game.winning_team_id).try(:id)
-        )
-        puts "Updated " + game.label
-      end
+      game.update(
+        score: stattleship_game.score,
+        scoreline: stattleship_game.scoreline,
+        status: stattleship_game.status,
+        away_team_score: stattleship_game.away_team_score,
+        home_team_score: stattleship_game.home_team_score,
+        winning_team_id: Team.find_by(stattleship_id: stattleship_game.winning_team_id).try(:id)
+      )
+      puts "Updated " + game.label
 
     end
 

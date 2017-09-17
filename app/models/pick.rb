@@ -11,7 +11,7 @@ class Pick < ActiveRecord::Base
   end
 
   def evaluate
-    if game.status == "closed" && game.winning_team_id
+    if game.winning_team_id
       if picked_team_id == game.winning_team_id
         update(correct: true)
       else
