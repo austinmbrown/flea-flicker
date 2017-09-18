@@ -18,6 +18,10 @@ class Game < ActiveRecord::Base
   end
 
   def user_pick(user)
-    picks.find_by(user_id: user.id)
+    picks.find_by(user_id: user.id, fav_pick: false)
+  end
+
+  def fav_pick(user)
+    picks.find_by(user_id: user.id, fav_pick: true)
   end
 end
