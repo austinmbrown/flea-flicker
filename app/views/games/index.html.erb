@@ -46,32 +46,34 @@
   </tbody>
 </table>
 
-<strong>Favorite team:</strong>
-<table>
-  <tr>
-    <td><%= @favorite_team_game.kickoff %></td>
-      <td>
-        <%= @favorite_team_game.home_team.name %>
-        <% unless @favorite_team_game.started? || @favorite_team_game.fav_pick(current_user) || @favorite_team_game.week > @current_week %>
-          <%= link_to "Pick", picks_path(game_id: @favorite_team_game.id, picked_team_id: @favorite_team_game.home_team_id, fav_pick: true), method: "post" %>
-        <% end %>
-      </td>
-      <td>
-        <%= @favorite_team_game.away_team.name %>
-        <% unless @favorite_team_game.started? || @favorite_team_game.fav_pick(current_user) || @favorite_team_game.week > @current_week %>
-          <%= link_to "Pick", picks_path(game_id: @favorite_team_game.id, picked_team_id: @favorite_team_game.away_team_id, fav_pick: true), method: "post" %>
-        <% end %>
-      </td>
-      <td><%= @favorite_team_game.winning_team.try(:name) %></td>
-      <td><%= @favorite_team_game.score %></td>
-      <td><%= @favorite_team_game.fav_pick(current_user).try(:team_name) %></td>
-      <td>
-        <% if @favorite_team_game.fav_pick(current_user) && !@favorite_team_game.started? %>
-          <%= link_to "Undo pick", pick_path(@favorite_team_game.fav_pick(current_user)), method: "delete" %>
-        <% end %>
-      </td>
-  </tr>
-</table>
+<% if @favorite_team_game %>
+  <strong>Favorite team:</strong>
+  <table>
+    <tr>
+      <td><%= @favorite_team_game.kickoff %></td>
+        <td>
+          <%= @favorite_team_game.home_team.name %>
+          <% unless @favorite_team_game.started? || @favorite_team_game.fav_pick(current_user) || @favorite_team_game.week > @current_week %>
+            <%= link_to "Pick", picks_path(game_id: @favorite_team_game.id, picked_team_id: @favorite_team_game.home_team_id, fav_pick: true), method: "post" %>
+          <% end %>
+        </td>
+        <td>
+          <%= @favorite_team_game.away_team.name %>
+          <% unless @favorite_team_game.started? || @favorite_team_game.fav_pick(current_user) || @favorite_team_game.week > @current_week %>
+            <%= link_to "Pick", picks_path(game_id: @favorite_team_game.id, picked_team_id: @favorite_team_game.away_team_id, fav_pick: true), method: "post" %>
+          <% end %>
+        </td>
+        <td><%= @favorite_team_game.winning_team.try(:name) %></td>
+        <td><%= @favorite_team_game.score %></td>
+        <td><%= @favorite_team_game.fav_pick(current_user).try(:team_name) %></td>
+        <td>
+          <% if @favorite_team_game.fav_pick(current_user) && !@favorite_team_game.started? %>
+            <%= link_to "Undo pick", pick_path(@favorite_team_game.fav_pick(current_user)), method: "delete" %>
+          <% end %>
+        </td>
+    </tr>
+  </table>
+<% end %>
 
 <% if @week.to_i > 1 %>
   <%= link_to "Previous week", games_path(week: @week.to_i - 1) %>
