@@ -1,0 +1,23 @@
+/ <p id="notice"><haml_loud> notice </haml_loud></p>
+.l.l-header
+  .l.l-navbar
+    = link_to('Sign Out', destroy_user_session_path, method: :delete, class: "button button--sign-out")
+    .navbar__text Picks
+    = link_to("Rankings", users_path, method: :get, class: "button button--rankings")
+.l.l-body
+  .l.l-paper.l-paper--games
+    .games
+      .games__text.games__text--title
+        Week #{@week}
+      - @games.each do |game|
+        = render partial: "partials/game", locals: {game: game}
+      / Will need styling
+      - if @favorite_team_game
+        %strong Favorite team:
+        = render partial: "partials/favorite_team_game", locals: {game: @favorite_team_game}
+    .button-group.button-group--horizontal
+      - if @week.to_i > 1
+        = link_to "< Previous", games_path(week: @week.to_i - 1), class: "button button--pick-navigation"
+      = link_to "Current", games_path(), class: "button button--pick-navigation"
+      - if @week.to_i < 17
+        = link_to "Next >", games_path(week: @week.to_i + 1), class: "button button--pick-navigation"
