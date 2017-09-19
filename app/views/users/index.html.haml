@@ -1,0 +1,16 @@
+/ <p id="notice"><haml_loud> notice </haml_loud></p>
+.l.l-header
+  .l.l-navbar
+    = link_to('Sign Out', destroy_user_session_path, method: :delete, class: "button button--sign-out")
+    .navbar__text Rankings
+    .button.button--rankings Rankings
+.l.l-body
+  .l.l-paper.l-paper--games
+    .users
+      - @users.each do |user|
+        .user
+          .user__text= user.email
+          / <div class="user__text user__text--score"><haml_loud> user.picks.count </haml_loud></div>
+          .user__text.user__text--score= user.picks.correct.count
+    .button-group.button-group--vertical
+      = link_to "< Back to picks", games_path, method: "get", class: "button button--back-to-picks"

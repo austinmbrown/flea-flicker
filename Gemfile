@@ -4,6 +4,7 @@ ruby '2.2.2'
 gem 'devise'
 gem 'stattleship-ruby', '~> 0.1.26'
 gem 'pg'
+gem "haml-rails", "~> 1.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
