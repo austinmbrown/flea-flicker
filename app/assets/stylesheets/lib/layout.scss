@@ -33,35 +33,63 @@
   }
   // .l-header
   &-header {
+    // Flex container
     display: flex;
+    align-items: center;
+    // Non-flex layout
+    position: fixed;
     max-width: none;
+    min-height: $navbar-height;
+    z-index: $z-ui-middle;
+    // Styling
+    background-color: $color-white;
+    border-bottom: 4px solid $color-blue;
+    outline: 4px solid $color-dark-blue;
+
+    &:before {
+      content: ' ';
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-bottom: 4px solid $color-dark-blue;
+      position: absolute;
+    }
   }
   // .l-navbar
   &-navbar {
     // Flex container
     display: flex;
     justify-content: space-between;
-    // Flex
-    flex: 1;
+    align-items: center;
     // Non-flex layout
     position: relative;
-    height: $navbar-height;
-    z-index: $z-ui-top;
-    padding: 0;
-    // Styling
-    background-color: $color-white;
+    padding: 0 $l-padding;
   }
   // .l-body
   &-body {
+    // Flex container
+    display: flex;
+    justify-content: center;
     // Non-flex layout
-    padding: 0 $l-padding;
+    max-width: none;
+    margin-top: $navbar-height;
   }
   // .l-paper
   &-paper {
     // Non-flex layout
+    margin: 0 $l-padding;
+    margin-top: -($border-width);
     padding: $padding;
     // Styling
     background-color: $color-white;
     border: $border $color-dark-blue;
+
+    // Modifiers
+    // .l-paper--games
+    &--games {
+      padding: $padding / 2;
+      padding-bottom: $padding;
+    }
   }
 }

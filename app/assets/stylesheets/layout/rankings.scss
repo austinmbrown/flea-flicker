@@ -9,3 +9,79 @@
 
  */
 
+// .user
+.user {
+  // Flex container
+  display: flex;
+  justify-content: space-between;
+  // Non-flex layout
+  margin: $padding / 4 0;
+
+  // Elements
+  // .user__text
+  &__text {
+    font-family: $condensed-text;
+    font-size: $fs-large;
+    color: $color-dark-blue;
+    line-height: 0.75em;
+
+    // Modifiers
+    // .user__text--leader
+    &--leader {
+      font-size: $fs-extra-large;
+    }
+    // .user__text--score
+    &--score {
+      font-family: $app-text;
+    }
+  }
+  // Modifiers
+
+  // Container
+  // .users
+  &s {
+    // Flex container
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    // Elements
+  }
+}
+
+// .button-group
+.button-group {
+  display: flex;
+
+  // Modifiers
+  // .button-group--horizontal
+  &--horizontal {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  // .button-group--vertical
+  &--vertical {
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
+
+// .button
+.button {
+  // Flex container
+  display: flex;
+  align-items: center;
+  // Non-flex layout
+  height: $button-height;
+  padding: $padding / 2;
+  // Styling
+  font-family: $extra-condensed-text;
+  font-size: $fs-medium;
+  line-height: 0.75em;
+  white-space: nowrap;
+  color: $color-black;
+  text-decoration: none;
+  border: $border $color-dark-blue;
+}

@@ -17,7 +17,14 @@ class Game < ActiveRecord::Base
     kickoff < DateTime.now
   end
 
-  def user_pick(user)
-    picks.find_by(user_id: user.id)
+  def user_pick(_user)
+    picks.find_by(user_id: _user.id)
+  end
+
+  def user_pick_team(_user)
+    team_id = picks.find_by(user_id: _user.id).try(:picked_team_id)
+    if team_id
+      Team.find(team_id)
+    end
   end
 end
