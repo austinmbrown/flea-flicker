@@ -28,7 +28,14 @@ namespace :games do
         winning_team_id: Team.find_by(stattleship_id: stattleship_game.winning_team_id).try(:id)
       )
       puts "Updated " + game.label
+    end
 
+    Team.all.each do |team|
+      games_count = Game.where("away_team_id = ? or home_team_id = ?", team.id, team.id).where(status: "closed").count
+      team.wins = Game.where(winning_team_id: team.id).count
+      team.losses = games_count - team.wins
+      # WHAT IF THERES A TIE?!
+      team.save
     end
 
   end

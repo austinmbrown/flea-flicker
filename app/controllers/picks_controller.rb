@@ -9,7 +9,7 @@ class PicksController < ApplicationController
       pick.user = current_user
       pick.fav_pick = params[:fav_pick] if params[:fav_pick]
       pick.save
-      redirect_to games_url
+      redirect_to games_url(week: pick.game.week)
     end
   end
 
