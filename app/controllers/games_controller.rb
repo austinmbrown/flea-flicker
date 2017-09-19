@@ -5,13 +5,16 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
+    current_user.picks.unevaluated.each(&:evaluate)
     @current_week = current_week
     if params[:week]
       @week = params[:week]
-      @games = Game.where(week: params[:week])
+      @favorite_team_game = current_user.favorite_team.find_game_by_week(@week) if current_user.favorite_team
+      @games = Game.where(week: params[:week]).sort_by(&:kickoff)
     else
       @week = @current_week
-      @games = Game.where(week: @week)
+      @favorite_team_game = current_user.favorite_team.find_game_by_week(@week) if current_user.favorite_team
+      @games = Game.where(week: @week).sort_by(&:kickoff)
     end
   end
 
@@ -35,4 +38,5 @@ class GamesController < ApplicationController
       return if today > last_day || today < first_day
       ((today - first_day)).to_i/7-1
     end
+
 end

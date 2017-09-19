@@ -7,6 +7,7 @@ class PicksController < ApplicationController
     else
       pick = Pick.new(game_id: params[:game_id], picked_team_id: params[:picked_team_id])
       pick.user = current_user
+      pick.fav_pick = params[:fav_pick] if params[:fav_pick]
       pick.save
       redirect_to games_url
     end
