@@ -31,15 +31,18 @@ $color-shadow  : rgba(0,0,0,0.25);
  * Variables for system-wide non-color aesthetics
  */
 
-$padding       :         20px;
-$l-padding     : $padding * 2;
-$max-width     :       1200px;
+$padding      :                    40px;
+$l-padding    :            $padding * 2;
+$max-width    :                  1200px;
 
-$border        :    4px solid;
-$border-focused:   12px solid; 
-$navbar-height :        125px;
-$input-height  :         36px;
-$button-height :         60px;
+$border-width :                     4px;
+$border       :     $border-width solid;
+$border-picked: $border-width * 3 solid;
+$navbar-height:                   108px;
+$team-height  :                   128px;
+$logo-height  :                    80px;
+$input-height :                    36px;
+$button-height:                    60px;
 
 $box-shadow-surround: 0px 8px 16px 0px rgba($color-black, 0.4);
 
@@ -81,10 +84,25 @@ $fs-mega-small : 14px; // Not in design
 $fs-extra-small: 24px;
 $fs-small      : 28px;
 $fs-medium     : 32px;
-$fs-large      : 64px;
-$fs-extra-large: 72px;
-$fs-mega-large : 64px; // Not in design
+$fs-large      : 56px;
+$fs-extra-large: 64px;
+$fs-mega-large : 72px;
 $fs-hero       : 72px; // Not in design
+
+/**
+ * FONT-WEIGHTS
+
+ * Like it says on the tin
+ */
+
+$fw-thin:        100;
+$fw-extra-light: 200;
+$fw-light:       300;
+$fw-book:        400;
+$fw-medium:      500;
+$fw-bold:        700;
+$fw-black:       800;
+$fw-ultra:       900;
 
 /**
  * Z-INDICES

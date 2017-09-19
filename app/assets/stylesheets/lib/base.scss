@@ -1,0 +1,19 @@
+@import "variables";
+/**
+ * BASE
+
+ * App-wide CSS properties that must be
+ * Overwritten if they are to be changed
+ * !important rules are overwriting Bootstrap
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: $color-blue;
+  font-family: $app-text;
+  font-weight: $fw-light;
+}

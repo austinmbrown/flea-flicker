@@ -21,6 +21,13 @@ class Game < ActiveRecord::Base
     picks.find_by(user_id: user.id, fav_pick: false)
   end
 
+  def user_pick_team(_user)
+    team_id = picks.find_by(user_id: _user.id).try(:picked_team_id)
+    if team_id
+      Team.find(team_id)
+    end
+  end
+
   def fav_pick(user)
     picks.find_by(user_id: user.id, fav_pick: true)
   end

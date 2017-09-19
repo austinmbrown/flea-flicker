@@ -9,3 +9,170 @@
 
  */
 
+// .game
+.game {
+  // Flex container
+  display: flex;
+  justify-content: space-between;
+  // Non-flex layout
+  margin: $padding / 4 0;
+
+  // Elements
+
+  // Modifiers
+
+  // Container
+  // .games
+  &s {
+    // Flex container
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+
+    // Elements
+    // .games__text
+    &__text {
+      font-family: $handegg-text;
+      color: $color-dark-blue;
+      text-transform: uppercase;
+      line-height: 0.75em;
+
+      // Modifiers
+      // .games__text--title
+      &--title {
+        font-size: $fs-extra-large;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// .team
+.team {
+  // Flex container
+  display: flex;
+  align-items: center;
+  // Flex;
+  flex: 1;
+  // Non-flex layout
+  // height: $team-height;
+  padding: 0;
+  // Styling
+  border: $border $color-dark-blue;
+  text-decoration: none;
+  color: $color-black;
+
+  // Elements
+  // .team__logo
+  &__logo {
+    // Temporary
+    background-color: $color-light-gray;
+    height: $logo-height;
+    width: $logo-height;
+    border-radius: $logo-height / 2;
+  }
+
+  // .team__text
+  &__text {
+    font-family: $handegg-text;
+    line-height: 0.75em;
+
+    // .team__text--score
+    &--score {
+      font-size: $fs-extra-large;
+    }
+    // .team__text--record
+    &--record {
+      font-size: $fs-extra-large;
+      letter-spacing: -3px;
+    }
+    // .team__text--name
+    &--name {
+      font-size: $fs-small;
+      text-transform: uppercase;
+      padding-bottom: $padding / 4;
+    }
+
+    // Container
+    &-container {
+      flex: 1;
+      // .team__text-container--away
+      &--away {
+        text-align: left;
+      }
+      // .team__text-container--home
+      &--home {
+        text-align: right;
+      }
+
+    }
+  }
+  // .team__spacer
+  &__spacer { min-width: $padding / 4; }
+
+  .team__logo {
+    margin: $padding / 2 - 2px;
+  }
+
+  // Modifiers
+  // .team--picked
+  &--picked {
+    border: $border-picked $color-dark-blue;
+    .team__logo {
+      margin: $padding / 4;
+    }
+  }
+  // .team--correct-pick
+  &--correct-pick { background-color: $color-yellow; }
+  // .team--incorrect-pick
+  &--incorrect-pick { background-color: $color-neutral-gray; }
+}
+
+// .navbar
+.navbar {
+
+  // Elements
+  &__text {
+    font-family: $extra-condensed-text;
+    font-size: $fs-extra-large;
+    line-height: 0.75em;
+  }
+}
+
+// .button-group
+.button-group {
+  display: flex;
+
+  // Modifiers
+  // .button-group--horizontal
+  &--horizontal {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  // .button-group--vertical
+  &--vertical {
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
+
+// .button
+.button {
+  // Flex container
+  display: flex;
+  align-items: center;
+  // Non-flex layout
+  height: $button-height;
+  padding: $padding / 2;
+  // Styling
+  font-family: $extra-condensed-text;
+  font-size: $fs-medium;
+  line-height: 0.75em;
+  white-space: nowrap;
+  color: $color-black;
+  text-decoration: none;
+  border: $border $color-dark-blue;
+}

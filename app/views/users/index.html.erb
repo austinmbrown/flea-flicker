@@ -1,26 +1,25 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
+<div class="l l-header">
+  <div class="l l-navbar">
+    <%= link_to('Sign Out', destroy_user_session_path, method: :delete, class: "button button--sign-out") %>
+    <div class="navbar__text">Rankings</div>
+    <div class="button button--rankings">Rankings</div>
+  </div>
+</div>
 
-<h1>Users</h1>
-<%= link_to "Back to picks", games_path, method: "get" %>
-
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Picks</th>
-      <th>Correct Picks</th>
-    </tr>
-  </thead>
-
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.picks.count %></td>
-        <td><%= user.picks.correct.count %></td>
-      </tr>
-    <% end %>
-  </tbody>
-
-</table>
+<div class="l l-body">
+  <div class="l l-paper l-paper--games">
+    <div class="users">
+      <% @users.each do |user| %>
+        <div class="user">
+          <div class="user__text"><%= user.email %></div>
+          <!-- <div class="user__text user__text--score"><%= user.picks.count %></div> -->
+          <div class="user__text user__text--score"><%= user.picks.correct.count %></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="button-group button-group--vertical">
+      <%= link_to "< Back to picks", games_path, method: "get", class: "button button--back-to-picks" %>
+    </div>
+  </div>
+</div>

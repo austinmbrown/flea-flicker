@@ -16,51 +16,80 @@
   max-width: $max-width;
   // .l-app
   &-app {
-    // Flex container properties
+    // Flex container
     display: flex;
+      // If the header is included in each page,
+      // Flex direction should be column
+      // If the header is a partial separate from the yield
+      // Flex direction should be row, to include the gutters
     flex-flow: column nowrap;
-    // Non-flex layout settings
+    align-items: center;
+    // Non-flex layout
     height: 100vh;
+      // Unset max-width so the lines go to the edges
+      // Again this setup depends on the header being included in each page
+      // If the header is separate, .l-app needs to wrap both header and content
+    max-width: none;
+  }
+  // .l-header
+  &-header {
+    // Flex container
+    display: flex;
+    align-items: center;
+    // Non-flex layout
+    position: fixed;
+    max-width: none;
+    min-height: $navbar-height;
+    z-index: $z-ui-middle;
+    // Styling
+    background-color: $color-white;
+    border-bottom: 4px solid $color-blue;
+    outline: 4px solid $color-dark-blue;
+
+    &:before {
+      content: ' ';
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-bottom: 4px solid $color-dark-blue;
+      position: absolute;
+    }
   }
   // .l-navbar
   &-navbar {
-    // Flex properties
-    flex: 0 0 auto;
-    // Flex container properties
+    // Flex container
     display: flex;
     justify-content: space-between;
-    // Non-flex layout properties
+    align-items: center;
+    // Non-flex layout
     position: relative;
-    height: $navbar-height;
-    z-index: $z-ui-top;
-    padding: 0;
+    padding: 0 $l-padding;
+  }
+  // .l-body
+  &-body {
+    // Flex container
+    display: flex;
+    justify-content: center;
+    // Non-flex layout
+    max-width: none;
+    margin-top: $navbar-height;
+  }
+  // .l-paper
+  &-paper {
+    // Non-flex layout
+    margin: 0 $l-padding;
+    margin-top: -($border-width);
+    padding: $padding;
     // Styling
     background-color: $color-white;
-  }
-  // .l-table
-  &-table {
-    padding: 0 $l-padding;
+    border: $border $color-dark-blue;
 
     // Modifiers
-    // .l-table--admin
-    &--admin { max-width: none; }
-  }
-  // .l-modal
-  &-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: $z-modal;
-    overflow: scroll;
-
-    // Not sure if this needs to be here
-    outline: 0;
-
-    // Modifiers
-    // .l-modal--is-open
-    &--is-open { display: flex; }
+    // .l-paper--games
+    &--games {
+      padding: $padding / 2;
+      padding-bottom: $padding;
+    }
   }
 }
