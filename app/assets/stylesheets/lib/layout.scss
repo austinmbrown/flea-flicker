@@ -35,6 +35,7 @@
   &-header {
     // Flex container
     display: flex;
+    justify-content: center;
     align-items: center;
     // Non-flex layout
     position: fixed;
@@ -64,7 +65,7 @@
     align-items: center;
     // Non-flex layout
     position: relative;
-    padding: 0 $l-padding;
+    margin: 0 $l-padding;
   }
   // .l-body
   &-body {
@@ -91,6 +92,10 @@
       height: 100%;
       padding: $padding / 2;
       padding-bottom: $padding;
+    }
+    // .l-paper--sign-in
+    &--sign-in {
+      
     }
   }
 }

@@ -9,3 +9,33 @@
 
  */
 
+// .form
+.form {
+
+  // Modifiers
+  // .form--sign-in
+  &--sign-in {
+
+  }
+}
+
+// .input
+.input {
+
+  // Modifiers
+  // .input--text-input
+  &--text-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $padding / 2;
+
+    label {
+      font-size: $fs-medium;
+    }
+    input {
+      height: $input-height;
+      padding-left: $padding / 4;
+      font-size: $fs-medium;
+    }
+  }
+}

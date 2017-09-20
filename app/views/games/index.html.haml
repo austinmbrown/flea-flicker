@@ -14,7 +14,7 @@
         = render partial: "partials/favorite_team_game", locals: {game: @favorite_team_game}
     .button-group.button-group--horizontal
       - if @week.to_i > 1
-        = link_to "< Previous", games_path(week: @week.to_i - 1), class: "button button--pick-navigation"
-      = link_to "Current", games_path(), class: "button button--pick-navigation"
+        = link_to "< Previous", games_path(week: @week.to_i - 1), class: "button button--game-navigation"
+      = link_to "Current", games_path(), class: "button button--game-navigation"
       - if @week.to_i < 17
-        = link_to "Next >", games_path(week: @week.to_i + 1), class: "button button--pick-navigation"
+        = link_to "Next >", games_path(week: @week.to_i + 1), class: "button button--game-navigation"

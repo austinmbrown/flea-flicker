@@ -14,8 +14,27 @@
   // Flex container
   display: flex;
   justify-content: space-between;
-  // Non-flex layout
-  margin: $padding / 4 0;
+
+  &:first-of-type {
+
+    // Non-flex layout
+    margin: $padding 0;
+    padding-bottom: $padding;
+    // Styling
+    border-bottom: $border $color-yellow;
+    div {
+      font-size: $fs-mega-large;
+    }
+  }
+  &:not(:first-of-type),
+  &:last-of-type {
+
+    // Non-flex layout
+    margin: $padding / 4 0;
+    padding-bottom: $padding / 2;
+    // Styling
+    border: none;
+  }
 
   // Elements
   // .user__text
@@ -47,41 +66,4 @@
 
     // Elements
   }
-}
-
-// .button-group
-.button-group {
-  display: flex;
-
-  // Modifiers
-  // .button-group--horizontal
-  &--horizontal {
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  // .button-group--vertical
-  &--vertical {
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: stretch;
-  }
-}
-
-// .button
-.button {
-  // Flex container
-  display: flex;
-  align-items: center;
-  // Non-flex layout
-  height: $button-height;
-  padding: $padding / 2;
-  // Styling
-  font-family: $extra-condensed-text;
-  font-size: $fs-medium;
-  line-height: 0.75em;
-  white-space: nowrap;
-  color: $color-black;
-  text-decoration: none;
-  border: $border $color-dark-blue;
 }

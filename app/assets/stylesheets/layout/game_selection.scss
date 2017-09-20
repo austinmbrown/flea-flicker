@@ -134,9 +134,16 @@
 
   // Elements
   &__text {
+    // Flex
+    flex: 1;
+    // Non-flex layout
+    line-height: 0.75em;
+    padding: 0 $padding / 2;
+    // Styling
+    text-align: center;
     font-family: $extra-condensed-text;
     font-size: $fs-extra-large;
-    line-height: 0.75em;
+    color: $color-dark-blue;
   }
 }
 
@@ -157,22 +164,34 @@
     justify-content: flex-start;
     align-items: stretch;
   }
+  // .button-group--sign-in
+  &--sign-in {
+    padding-top: $padding / 2;
+  }
 }
 
 // .button
 .button {
-  // Flex container
-  display: flex;
-  align-items: center;
   // Non-flex layout
   height: $button-height;
-  padding: $padding / 2;
+  padding: $button-padding $padding / 2;
   // Styling
-  font-family: $extra-condensed-text;
+  // Font-size needs to stay the same
   font-size: $fs-medium;
   line-height: 0.75em;
   white-space: nowrap;
   color: $color-black;
+  background-color: $color-white;
   text-decoration: none;
   border: $border $color-dark-blue;
+
+  // Modifiers
+  // .button--game-navigation
+  &--game-navigation {
+    font-family: $extra-condensed-text;
+  }
+  // .button--app-navigation
+  &--app-navigation {
+    font-family: $app-text;
+  }
 }

@@ -3,6 +3,6 @@
 - if current_page?('/games')
   .navbar__text Picks
   = link_to("Rankings", users_path, method: :get, class: "button button--rankings")
-- else
+- elsif current_page?('/users')
   .navbar__text Rankings
   .button.button--rankings Rankings

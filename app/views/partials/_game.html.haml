@@ -27,13 +27,19 @@
           .team__text-container.team__text-container--away
             .team__text.team__text--name
               = game.away_team.name
-            .team__text.team__text--score
+            .team__text.team__text--record
+              = game.away_team.wins
+              %span -
+              = game.away_team.losses
         .team__spacer
         .team
           .team__text-container.team__text-container--home
             .team__text.team__text--name
               = game.home_team.name
-            .team__text.team__text--score
+            .team__text.team__text--record
+              = game.home_team.wins
+              %span -
+              = game.home_team.losses
           .team__logo
             = game.home_team.logo_url
       - elsif game.user_pick_team(current_user) == game.home_team
@@ -43,13 +49,19 @@
           .team__text-container.team__text-container--away
             .team__text.team__text--name
               = game.away_team.name
-            .team__text.team__text--score
+            .team__text.team__text--record
+              = game.away_team.wins
+              %span -
+              = game.away_team.losses
         .team__spacer
         = link_to pick_path(game.user_pick(current_user)), method: "delete", class: "team team--picked" do
           .team__text-container.team__text-container--home
             .team__text.team__text--name
               = game.home_team.name
-            .team__text.team__text--score
+            .team__text.team__text--record
+              = game.home_team.wins
+              %span -
+              = game.home_team.losses
           .team__logo
             = game.home_team.logo_url
     - else
