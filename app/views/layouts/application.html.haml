@@ -11,8 +11,9 @@
       try{Typekit.load({ async: true });}catch(e){}
   %body
     .l-app
-      .l.l-header
-        .l.l-navbar
-          = render partial: "partials/navbar"
+      - if current_user
+        .l.l-header
+          .l.l-navbar
+            = render partial: "partials/navbar"
       = yield
 
