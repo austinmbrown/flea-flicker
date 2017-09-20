@@ -1,9 +1,3 @@
-/ <p id="notice"><haml_loud> notice </haml_loud></p>
-.l.l-header
-  .l.l-navbar
-    = link_to('Sign Out', destroy_user_session_path, method: :delete, class: "button button--sign-out")
-    .navbar__text Picks
-    = link_to("Rankings", users_path, method: :get, class: "button button--rankings")
 .l.l-body
   .l.l-paper.l-paper--games
     .games
