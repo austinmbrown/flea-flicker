@@ -53,7 +53,7 @@
           .team__logo
             = game.home_team.logo_url
     - else
-      = link_to picks_path(game_id: game.id, picked_team_id: game.away_team_id), method: "post", class: "team" do
+      = link_to picks_path(game_id: game.id, picked_team_id: game.away_team_id, fav_pick: true), method: "post", class: "team" do
         .team__logo
           = game.away_team.logo_url
         .team__text-container.team__text-container--away
@@ -65,7 +65,7 @@
             = game.away_team.losses
 
       .team__spacer
-      = link_to picks_path(game_id: game.id, picked_team_id: game.home_team_id), method: "post", class: "team" do
+      = link_to picks_path(game_id: game.id, picked_team_id: game.home_team_id, fav_pick: true), method: "post", class: "team" do
         .team__text-container.team__text-container--home
           .team__text.team__text--name
             = game.home_team.name
