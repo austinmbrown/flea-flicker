@@ -10,11 +10,11 @@ class GamesController < ApplicationController
     if params[:week]
       @week = params[:week]
       @favorite_team_game = current_user.favorite_team.find_game_by_week(@week) if current_user.favorite_team
-      @games = Game.where(week: params[:week]).sort_by(&:kickoff)
+      @games_groups = Game.where(week: params[:week]).group_by(&:kickoff).sort_by{|group| group[0]}
     else
       @week = @current_week
       @favorite_team_game = current_user.favorite_team.find_game_by_week(@week) if current_user.favorite_team
-      @games = Game.where(week: @week).sort_by(&:kickoff)
+      @games_groups = Game.where(week: @week).group_by(&:kickoff).sort_by{|group| group[0]}
     end
   end
 
