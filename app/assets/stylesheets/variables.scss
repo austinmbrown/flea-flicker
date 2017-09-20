@@ -31,18 +31,19 @@ $color-shadow  : rgba(0,0,0,0.25);
  * Variables for system-wide non-color aesthetics
  */
 
-$padding      :                    40px;
-$l-padding    :            $padding * 2;
-$max-width    :                  1200px;
+$padding       :                    40px;
+$l-padding     :            $padding * 2;
+$max-width     :                  1200px;
 
-$border-width :                     4px;
-$border       :     $border-width solid;
-$border-picked: $border-width * 3 solid;
-$navbar-height:                   108px;
-$team-height  :                   128px;
-$logo-height  :                    80px;
-$input-height :                    36px;
-$button-height:                    60px;
+$border-width  :                     4px;
+$border        :     $border-width solid;
+$border-picked : $border-width * 3 solid;
+$navbar-height :                   108px;
+$team-height   :                   128px;
+$logo-height   :                    80px;
+$input-height  :                    60px;
+$button-height :                    60px;
+$button-padding:                    14px;
 
 $box-shadow-surround: 0px 8px 16px 0px rgba($color-black, 0.4);
 

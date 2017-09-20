@@ -15,5 +15,9 @@
         .l.l-header
           .l.l-navbar
             = render partial: "partials/navbar"
+      - else
+        .l.l-header
+          .l.l-navbar
+            .navbar__text Welcome! Please log in.
       = yield
 
