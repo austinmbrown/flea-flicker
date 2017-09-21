@@ -31,18 +31,18 @@ $color-shadow  : rgba(0,0,0,0.25);
  * Variables for system-wide non-color aesthetics
  */
 
-$padding       :                    40px;
-$l-padding     :            $padding * 2;
-$max-width     :                  1200px;
+$padding       :                40px;
+$l-padding     :        $padding * 2;
+$max-width     :              1200px;
 
-$border-width  :                     4px;
-$border        :     $border-width solid;
-$border-picked : $border-width * 2 solid;
-$navbar-height :                   108px;
-$logo-height   :                    60px;
-$input-height  :                    60px;
-$button-height :                    60px;
-$button-padding:                    14px;
+$border-width  :                 4px;
+$border        : $border-width solid;
+$border-picked : $border-width solid;
+$navbar-height :               108px;
+$logo-height   :                60px;
+$input-height  :                50px;
+$button-height :                50px;
+$button-padding:                14px;
 
 $box-shadow-surround: 0px 8px 16px 0px rgba($color-black, 0.4);
 
@@ -80,7 +80,7 @@ $extra-condensed-text: $font-proxima-nova-extra-condensed;
  */
 
 $fs-tiny       : 12px; // Not in design
-$fs-mega-small : 14px; // Not in design
+$fs-mega-small : 18px;
 $fs-extra-small: 24px;
 $fs-small      : 28px;
 $fs-medium     : 32px;
