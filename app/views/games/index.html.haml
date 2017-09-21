@@ -15,6 +15,6 @@
     .button-group.button-group--horizontal
       - if @week.to_i > 1
         = link_to "< WK #{@week.to_i-1}", games_path(week: @week.to_i - 1), class: "button button--game-navigation"
-      = link_to "This Week", games_path(), class: "button button--game-navigation"
+      = link_to "WK #{@current_week}", games_path(), class: "button button--game-navigation"
       - if @week.to_i < 17
         = link_to "WK #{@week.to_i+1} >", games_path(week: @week.to_i + 1), class: "button button--game-navigation"
