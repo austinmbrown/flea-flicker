@@ -20,7 +20,7 @@ teams.each do |team|
   Team.create(
     stattleship_id: team.id,
     location: team.location,
-    name: team.nickname
+    name: team.nickname,
     logo_url: team.nickname + ".png"
   )
   puts team.nickname
