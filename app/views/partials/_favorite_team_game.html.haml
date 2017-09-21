@@ -35,7 +35,7 @@
             .team__text.team__text--name
               = game.home_team.name
             .team__text.team__text--record
-              #{game.away_team.wins}-#{game.away_team.losses}
+              #{game.home_team.wins}-#{game.home_team.losses}
           .team__logo
             = image_tag(game.home_team.logo_url)
       - elsif game.user_pick_team(current_user, true) == game.home_team
@@ -53,7 +53,7 @@
             .team__text.team__text--name
               = game.home_team.name
             .team__text.team__text--record
-              #{game.away_team.wins}-#{game.away_team.losses}
+              #{game.home_team.wins}-#{game.home_team.losses}
           .team__logo
             = image_tag(game.home_team.logo_url)
     - else
@@ -71,6 +71,6 @@
           .team__text.team__text--name
             = game.home_team.name
           .team__text.team__text--record
-            #{game.away_team.wins}-#{game.away_team.losses}
+            #{game.home_team.wins}-#{game.home_team.losses}
         .team__logo
           = image_tag(game.home_team.logo_url)
