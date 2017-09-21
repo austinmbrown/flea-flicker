@@ -21,6 +21,7 @@ teams.each do |team|
     stattleship_id: team.id,
     location: team.location,
     name: team.nickname
+    logo_url: team.nickname + ".png"
   )
   puts team.nickname
 end
