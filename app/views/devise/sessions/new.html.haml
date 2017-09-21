@@ -2,8 +2,8 @@
   .l.l-paper.l-paper--sign-in
     = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form form--sign-in") do |f|
       .input.input--text-input.input--email
-        = f.label :email
-        = f.email_field :email, autofocus: true
+        = f.label :first_name
+        = f.text_field :first_name, autofocus: true
       .input.input--text-input.input--password
         = f.label :password
         = f.password_field :password, autocomplete: "off"
