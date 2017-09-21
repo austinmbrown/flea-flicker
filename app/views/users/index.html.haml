@@ -3,7 +3,7 @@
     .users
       - @users.each do |user|
         .user
-          .user__text= user.email
+          .user__text= user.first_name
           .user__text.user__text--score= user.picks.correct.count
     .button-group.button-group--vertical
       = link_to "< Back to picks", games_path, method: "get", class: "button button--app-navigation"
