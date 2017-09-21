@@ -12,7 +12,7 @@ namespace :games do
     require 'stattleship'
 
     query_params = Stattleship::Params::FootballGamesParams.new
-    query_params.week = current_week
+    # query_params.week = current_week
     games_response = Stattleship::FootballGames.fetch(params: query_params)
 
     puts games_response

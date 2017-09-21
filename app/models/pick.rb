@@ -13,9 +13,9 @@ class Pick < ActiveRecord::Base
   def evaluate
     if game.winning_team_id
       if picked_team_id == game.winning_team_id
-        update(correct: true)
+        self.update(correct: true)
       else
-        update(correct: false)
+        self.update(correct: false)
       end
     end
   end
