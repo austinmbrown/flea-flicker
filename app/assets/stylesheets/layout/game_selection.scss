@@ -13,8 +13,8 @@
 .game {
   // Flex container
   display: flex;
-  justify-content: space-between;
   // Non-flex layout
+  width: 100%;
   margin: $padding / 4 0;
 
   // Elements
@@ -27,7 +27,7 @@
     // Flex container
     display: flex;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
 
 
     // Elements
@@ -44,6 +44,11 @@
         font-size: $fs-extra-large;
         text-align: center;
       }
+      // .games__text--gametime
+      &--gametime {
+        font-size: $fs-medium;
+        text-align: center;
+      }
     }
   }
 }
@@ -54,9 +59,8 @@
   display: flex;
   align-items: center;
   // Flex;
-  flex: 1;
+  flex: 1 1 0;
   // Non-flex layout
-  // height: $team-height;
   padding: 0;
   // Styling
   border: $border $color-dark-blue;
@@ -84,19 +88,19 @@
     }
     // .team__text--record
     &--record {
-      font-size: $fs-extra-large;
-      letter-spacing: -3px;
+      font-size: $fs-large;
+      letter-spacing: -2px;
     }
     // .team__text--name
     &--name {
-      font-size: $fs-small;
+      font-size: $fs-extra-small;
       text-transform: uppercase;
       padding-bottom: $padding / 4;
     }
 
     // Container
     &-container {
-      flex: 1;
+      flex: 1 1 0;
       // .team__text-container--away
       &--away {
         text-align: left;
@@ -141,9 +145,31 @@
     padding: 0 $padding / 2;
     // Styling
     text-align: center;
-    font-family: $extra-condensed-text;
-    font-size: $fs-extra-large;
     color: $color-dark-blue;
+
+    // Modifiers
+    // .navbar__text--title
+    &--title {
+      font-family: $extra-condensed-text;
+      font-size: $fs-extra-large;
+    }
+    // .navbar__text--subtitle
+    &--subtitle {
+      font-family: $extra-condensed-text;
+      font-size: $fs-extra-small;
+    }
+
+    // Container
+    // .navbar__texts
+    &s {
+      // Flex container
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      // Flex
+      flex: 1;
+    }
   }
 }
 
@@ -194,4 +220,15 @@
   &--app-navigation {
     font-family: $app-text;
   }
+  // .button--sign-out
+  &--sign-out {
+    width: $button-height;
+    border-radius: $button-height / 2;
+  }
+  // .button--rankings
+  &--rankings {
+    width: $button-height;
+    border-radius: $button-height / 2;
+  }
+
 }
