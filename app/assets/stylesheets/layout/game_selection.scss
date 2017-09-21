@@ -5,7 +5,7 @@
  *
 
  * Includes the following blocks:
- * - 
+ * -
 
  */
 
@@ -130,11 +130,13 @@
     .team__logo {
       margin: $padding / 4;
     }
+
+    &.winner { background-color: $color-yellow; }
   }
-  // .team--correct-pick
-  &--correct-pick { background-color: $color-yellow; }
-  // .team--incorrect-pick
-  &--incorrect-pick { background-color: $color-neutral-gray; }
+}
+
+.winner {
+  background-color: $color-neutral-gray;
 }
 
 // .navbar
@@ -244,6 +246,6 @@
   @media screen and (max-width: 425px) {
     font-size: $fs-extra-small;
     padding-top: 18px;
-  }  
+  }
 
 }

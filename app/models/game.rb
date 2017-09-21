@@ -13,6 +13,14 @@ class Game < ActiveRecord::Base
     winning_team_id ? Team.find(winning_team_id) : nil
   end
 
+  def away_team_wins
+    winning_team_id == away_team_id
+  end
+
+  def home_team_wins
+    winning_team_id == home_team_id
+  end
+
   def started?
     kickoff < DateTime.now
   end
