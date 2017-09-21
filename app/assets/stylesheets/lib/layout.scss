@@ -65,7 +65,7 @@
     align-items: center;
     // Non-flex layout
     position: relative;
-    margin: 0 $l-padding;
+    margin: 0 $padding / 2;
   }
   // .l-body
   &-body {
@@ -96,6 +96,10 @@
     // .l-paper--sign-in
     &--sign-in {
       
+    }
+
+    @media screen and (max-width: 425px) {
+      margin: 0;
     }
   }
 }

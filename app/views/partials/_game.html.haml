@@ -2,7 +2,7 @@
   .game.game--locked
     %div{:class => "team #{'team--picked' if game.user_pick_team(current_user) == game.away_team}"}
       .team__logo
-        = game.away_team.logo_url
+        = image_tag(game.away_team.logo_url)
       .team__text-container.team__text-container--away
         .team__text.team__text--name
           = game.away_team.name
@@ -16,73 +16,61 @@
         .team__text.team__text--score
           = game.home_team_score
       .team__logo
-        = game.home_team.logo_url
+        = image_tag(game.home_team.logo_url)
 - else
   .game.game--pickable
     - if game.user_pick(current_user) && !game.started?
       - if game.user_pick_team(current_user) == game.away_team
         = link_to pick_path(game.user_pick(current_user)), method: "delete", class: "team team--picked" do
           .team__logo
-            = game.away_team.logo_url
+            = image_tag(game.away_team.logo_url)
           .team__text-container.team__text-container--away
             .team__text.team__text--name
               = game.away_team.name
             .team__text.team__text--record
-              = game.away_team.wins
-              %span -
-              = game.away_team.losses
+              #{game.away_team.wins}-#{game.away_team.losses}
         .team__spacer
         .team
           .team__text-container.team__text-container--home
             .team__text.team__text--name
               = game.home_team.name
             .team__text.team__text--record
-              = game.home_team.wins
-              %span -
-              = game.home_team.losses
+              #{game.away_team.wins}-#{game.away_team.losses}
           .team__logo
-            = game.home_team.logo_url
+            = image_tag(game.home_team.logo_url)
       - elsif game.user_pick_team(current_user) == game.home_team
         .team
           .team__logo
-            = game.away_team.logo_url
+            = image_tag(game.away_team.logo_url)
           .team__text-container.team__text-container--away
             .team__text.team__text--name
               = game.away_team.name
             .team__text.team__text--record
-              = game.away_team.wins
-              %span -
-              = game.away_team.losses
+              #{game.away_team.wins}-#{game.away_team.losses}
         .team__spacer
         = link_to pick_path(game.user_pick(current_user)), method: "delete", class: "team team--picked" do
           .team__text-container.team__text-container--home
             .team__text.team__text--name
               = game.home_team.name
             .team__text.team__text--record
-              = game.home_team.wins
-              %span -
-              = game.home_team.losses
+              #{game.away_team.wins}-#{game.away_team.losses}
           .team__logo
-            = game.home_team.logo_url
+            = image_tag(game.home_team.logo_url)
     - else
       = link_to picks_path(game_id: game.id, picked_team_id: game.away_team_id), method: "post", class: "team" do
         .team__logo
-          = game.away_team.logo_url
+          = image_tag(game.away_team.logo_url)
         .team__text-container.team__text-container--away
           .team__text.team__text--name
             = game.away_team.name
           .team__text.team__text--record
-            = game.away_team.wins
-            %span -
-            = game.away_team.losses
+            #{game.away_team.wins}-#{game.away_team.losses}
       .team__spacer
       = link_to picks_path(game_id: game.id, picked_team_id: game.home_team_id), method: "post", class: "team" do
         .team__text-container.team__text-container--home
           .team__text.team__text--name
             = game.home_team.name
           .team__text.team__text--record
-            = game.home_team.wins
-            %span -
-            = game.home_team.losses
+            #{game.away_team.wins}-#{game.away_team.losses}
         .team__logo
-          = game.home_team.logo_url
+          = image_tag(game.home_team.logo_url)
