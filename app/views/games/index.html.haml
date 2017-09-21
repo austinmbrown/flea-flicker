@@ -8,8 +8,9 @@
           = render partial: "partials/game", locals: {game: game}
       / Will need styling
       - if @favorite_team_game
-        %strong Favorite team:
-        #{@favorite_team_game.kickoff.in_time_zone("Eastern Time (US & Canada)").strftime("%a, %-m/%d - %l:%M%P")}
+        .games__text.games__text--gametime
+          Favorite team:
+          #{@favorite_team_game.kickoff.in_time_zone("Eastern Time (US & Canada)").strftime("%a - %l:%M%P")}
         = render partial: "partials/favorite_team_game", locals: {game: @favorite_team_game}
     .button-group.button-group--horizontal
       - if @week.to_i > 1

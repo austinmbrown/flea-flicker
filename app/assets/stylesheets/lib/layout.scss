@@ -65,7 +65,7 @@
     align-items: center;
     // Non-flex layout
     position: relative;
-    margin: 0 $l-padding;
+    margin: 0 $padding / 2;
   }
   // .l-body
   &-body {
@@ -79,6 +79,7 @@
   // .l-paper
   &-paper {
     // Non-flex layout
+    height: 100%;
     margin: 0 $l-padding;
     margin-top: -($border-width);
     padding: $padding;
@@ -89,13 +90,20 @@
     // Modifiers
     // .l-paper--games
     &--games {
-      height: 100%;
       padding: $padding / 2;
       padding-bottom: $padding;
+      @media screen and (max-width: 425px) {
+        padding-right: $padding / 4;
+        padding-left: $padding / 4;
+      }  
     }
+    // .l-paper--rankings
+    &--rankings {  }
     // .l-paper--sign-in
-    &--sign-in {
-      
+    &--sign-in {  }
+
+    @media screen and (max-width: 425px) {
+      margin: 0;
     }
   }
 }

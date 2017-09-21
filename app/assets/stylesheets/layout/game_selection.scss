@@ -72,9 +72,12 @@
   &__logo {
     // Temporary
     background-color: $color-light-gray;
-    height: $logo-height;
-    width: $logo-height;
     border-radius: $logo-height / 2;
+
+    img {
+      height: $logo-height;
+      width: $logo-height;
+    }
   }
 
   // .team__text
@@ -90,6 +93,7 @@
     &--record {
       font-size: $fs-large;
       letter-spacing: -2px;
+      white-space: nowrap;
     }
     // .team__text--name
     &--name {
@@ -223,12 +227,23 @@
   // .button--sign-out
   &--sign-out {
     width: $button-height;
+    min-width: $button-height;
     border-radius: $button-height / 2;
+    background-image: image-url("Sign_out.png");
+    background-size: contain;
   }
   // .button--rankings
   &--rankings {
     width: $button-height;
+    min-width: $button-height;
     border-radius: $button-height / 2;
+    background-image: image-url("Rankings.png");
+    background-size: contain;
   }
+
+  @media screen and (max-width: 425px) {
+    font-size: $fs-extra-small;
+    padding-top: 18px;
+  }  
 
 }
