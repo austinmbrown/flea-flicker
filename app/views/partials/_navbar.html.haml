@@ -1,8 +1,8 @@
-= link_to('Sign Out', destroy_user_session_path, method: :delete, class: "button button--sign-out")
+= link_to('', destroy_user_session_path, method: :delete, class: "button button--sign-out")
 
 - if current_page?('/games')
-  .navbar__text Picks
-  = link_to("Rankings", users_path, method: :get, class: "button button--rankings")
+  .navbar__text.navbar__text--title Picks
+  = link_to("", users_path, method: :get, class: "button button--rankings")
 - elsif current_page?('/users')
-  .navbar__text Rankings
-  .button.button--rankings Rankings
+  .navbar__text.navbar__text--title Rankings
+  .button.button--rankings
