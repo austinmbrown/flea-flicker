@@ -83,11 +83,12 @@
   // .team__text
   &__text {
     font-family: $handegg-text;
+    color: $color-dark-blue;
     line-height: 0.75em;
 
     // .team__text--score
     &--score {
-      font-size: $fs-extra-large;
+      font-size: $fs-large;
     }
     // .team__text--record
     &--record {
@@ -97,7 +98,7 @@
     }
     // .team__text--name
     &--name {
-      font-size: $fs-extra-small;
+      font-size: $fs-mega-small;
       text-transform: uppercase;
       padding-bottom: $padding / 4;
     }
@@ -119,22 +120,27 @@
   // .team__spacer
   &__spacer { min-width: $padding / 4; }
 
+  // .team .team__logo
   .team__logo {
-    margin: $padding / 2 - 2px;
+    height: $logo-height;
+    margin: $button-padding;
+
+    @media screen and (max-width: 425px) {
+      margin: $button-padding $padding / 8;
+    }  
   }
 
   // Modifiers
   // .team--picked
   &--picked {
-    border: $border-picked $color-dark-blue;
-    .team__logo {
-      margin: $padding / 4;
-    }
-
+    outline: $border-picked $color-dark-blue;
+    
+    // .team--picked.winner
     &.winner { background-color: $color-yellow; }
   }
 }
 
+// .winner
 .winner {
   background-color: $color-neutral-gray;
 }
@@ -229,7 +235,7 @@
   // .button--sign-out
   &--sign-out {
     width: $button-height;
-    min-width: $button-height;
+    height: $button-height;
     border-radius: $button-height / 2;
     background-image: image-url("Sign_out.png");
     background-size: contain;
@@ -237,7 +243,7 @@
   // .button--rankings
   &--rankings {
     width: $button-height;
-    min-width: $button-height;
+    height: $button-height;
     border-radius: $button-height / 2;
     background-image: image-url("Rankings.png");
     background-size: contain;
@@ -245,7 +251,6 @@
 
   @media screen and (max-width: 425px) {
     font-size: $fs-extra-small;
-    padding-top: 18px;
+    padding-top: $button-padding;
   }
-
 }
