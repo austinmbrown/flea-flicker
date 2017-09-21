@@ -227,6 +227,7 @@
   // .button--sign-out
   &--sign-out {
     width: $button-height;
+    min-width: $button-height;
     border-radius: $button-height / 2;
     background-image: image-url("Sign_out.png");
     background-size: contain;
@@ -234,9 +235,15 @@
   // .button--rankings
   &--rankings {
     width: $button-height;
+    min-width: $button-height;
     border-radius: $button-height / 2;
     background-image: image-url("Rankings.png");
     background-size: contain;
   }
+
+  @media screen and (max-width: 425px) {
+    font-size: $fs-extra-small;
+    padding-top: 18px;
+  }  
 
 }
