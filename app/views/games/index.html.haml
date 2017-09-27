@@ -1,6 +1,8 @@
 .l.l-body
   .l.l-paper.l-paper--games
-    .games
+    #games.games
+      <games-group v-for="item in games_groups" v-bind:games_group="item" v-bind:key="item.id" ></games-group>
+
       - @games_groups.each do |game_time, game_group|
         .games__text.games__text--gametime
           WK #{@week} #{game_time.in_time_zone("Eastern Time (US & Canada)").strftime("%a - %l:%M%P")}
