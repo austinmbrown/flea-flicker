@@ -50,6 +50,10 @@
         text-align: center;
       }
     }
+    // .games__group
+    &__group {
+      width: 100%;
+    }
   }
 }
 
@@ -117,8 +121,12 @@
 
     }
   }
-  // .team__spacer
-  &__spacer { min-width: $padding / 4; }
+  // .team + .team
+  & + .team {
+    margin-left: $padding / 4;
+  }
+  // // .team__spacer
+  // &__spacer { min-width: $padding / 4; }
 
   // .team .team__logo
   .team__logo {

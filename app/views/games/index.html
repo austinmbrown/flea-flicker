@@ -1,8 +1,7 @@
-.l.l-body
-  .l.l-paper.l-paper--games
-    #games.games
-      <games-group v-for="item in games_groups" v-bind:games_group="item" v-bind:key="item.id" ></games-group>
-
+<div class="l l-body">
+  <div id="games" class="l l-paper l-paper--games">
+    <games-groups-list :games_groups="games_groups"></games-groups-list>
+<!-- 
       - @games_groups.each do |game_time, game_group|
         .games__text.games__text--gametime
           WK #{@week} #{game_time.in_time_zone("Eastern Time (US & Canada)").strftime("%a - %l:%M%P")}
@@ -20,3 +19,4 @@
       = link_to "WK #{@current_week}", games_path(), class: "button button--game-navigation"
       - if @week.to_i < 17
         = link_to "WK #{@week.to_i+1} >", games_path(week: @week.to_i + 1), class: "button button--game-navigation"
+ -->
