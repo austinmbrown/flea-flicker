@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   resources :games, only: [:index]
+  resources :teams, only: [:index, :show]
   resources :picks, only: [:create, :destroy]
   resources :users, only: [:index]
 
   root :to => redirect('/users/sign_in')
   devise_for :users, skip: [:registrations]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
