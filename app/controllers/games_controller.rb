@@ -6,15 +6,14 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     current_user.picks.unevaluated.each(&:evaluate)
-    @current_week = current_week
-    if params[:week]
-      @week = params[:week]
-      @favorite_team_game = current_user.favorite_team.find_game_by_week(@week) if current_user.favorite_team
-      @games_groups = Game.where(week: params[:week]).group_by(&:kickoff).sort_by{|group| group[0]}
-    else
-      @week = @current_week
-      @favorite_team_game = current_user.favorite_team.find_game_by_week(@week) if current_user.favorite_team
-      @games_groups = Game.where(week: @week).group_by(&:kickoff).sort_by{|group| group[0]}
+
+    week_number = params[:week] ? params[:week] : current_week
+
+    favorite_team_game = current_user.favorite_team.find_game_by_week(week_number) if current_user.favorite_team
+    week = Game.where(week: week_number)
+    respond_to do |format|
+      format.html
+      format.json { render :json => week }
     end
   end
 
