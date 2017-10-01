@@ -55,13 +55,31 @@ window.addEventListener('load', function () {
     methods: {  }
   });
 
-  const vm_games_index = new Vue({
+  const vm_weeks_show = new Vue({
     el: '#week',
+    mounted: function () {
+      currentSearch = location.search;
 
-    mounted: function (_weekId) {
-      this.$nextTick(function () {})
+      getCurrentlyViewedWeek = function() {
+        weekNumber = parseInt(currentSearch.replace(/[^0-9\.]/g, ''), 10);
+        if (isNaN(weekNumber)) {
+          today = Date.now();
+          firstDay = Date.parse('Aug 22, 2017');
+          lastDay = Date.parse('Feb 22, 2018');
+
+          if (today < firstDay || today > lastDay) {
+            return
+          } else {
+            weekNumber = moment(today).startOf('week').diff(firstDay, 'weeks') - 1;
+          }
+        }
+        return weekNumber;
+      };
+
+      thisWeek = getCurrentlyViewedWeek();
+
       let self = this;
-      let weekUrl = "/games.json";
+      let weekUrl = "/weeks/" + thisWeek + ".json";
 
       $.ajax({
         method: "GET",
@@ -82,7 +100,6 @@ window.addEventListener('load', function () {
     data: function() {
       return { week: [], teams: [] }
     },
-    computed: {  },
     methods: {
       groupGamesByKickoff: function(_gamesArray) {
 

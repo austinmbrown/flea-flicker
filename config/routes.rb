@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :games, only: [:index]
+  resources :weeks, only: [:index, :show]
   resources :teams, only: [:index, :show]
   resources :picks, only: [:create, :destroy]
   resources :users, only: [:index]

@@ -1,41 +1,31 @@
-class GamesController < ApplicationController
+class WeeksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_game, only: [:show]
 
-  # GET /games
-  # GET /games.json
+  # GET /weeks
   def index
     current_user.picks.unevaluated.each(&:evaluate)
 
     week_number = params[:week] ? params[:week] : current_week
 
     favorite_team_game = current_user.favorite_team.find_game_by_week(week_number) if current_user.favorite_team
-    week = Game.where(week: week_number)
-    respond_to do |format|
-      format.html
-      format.json { render :json => week }
-    end
+    # week = Game.where(week: week_number)
   end
 
-  # GET /games/1
-  # GET /games/1.json
+  # GET /weeks/1.json
   def show
+    week_number = params[:id]
+    render :json => Game.where(week: week_number)
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_game
-      @game = Game.find(params[:id])
-    end
-
     def current_week
       today = Date.today
       last_day = Date.new(2018, 2, 22)
       first_day = Date.new(2017, 8, 22)
-
+      
       return if today > last_day || today < first_day
       ((today - first_day)).to_i/7-1
     end
-
+  # end private
 end

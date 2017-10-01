@@ -9,6 +9,14 @@
 
  */
 
+// .week
+.week {
+  // Flex container
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 // .game
 .game {
   // Flex container
@@ -47,14 +55,6 @@
       text-align: center;
     }
   }
-}
-
-// .week
-.week {
-  // Flex container
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 // .team
