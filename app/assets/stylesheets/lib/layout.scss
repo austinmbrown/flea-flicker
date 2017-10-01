@@ -88,8 +88,8 @@
     border: $border $color-dark-blue;
 
     // Modifiers
-    // .l-paper--games
-    &--games {
+    // .l-paper--week
+    &--week {
       padding: $padding / 2;
       padding-bottom: $padding;
       @media screen and (max-width: 425px) {

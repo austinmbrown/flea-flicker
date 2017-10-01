@@ -21,40 +21,40 @@
 
   // Modifiers
 
-  // Container
-  // .games
-  &s {
-    // Flex container
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+}
 
+// .start-time
+.start-time {
+  width: 100%;
 
-    // Elements
-    // .games__text
-    &__text {
-      font-family: $handegg-text;
-      color: $color-dark-blue;
-      text-transform: uppercase;
-      line-height: 0.75em;
+  // Elements
+  // .start-time__text
+  &__text {
+    font-family: $handegg-text;
+    color: $color-dark-blue;
+    text-transform: uppercase;
+    line-height: 0.75em;
 
-      // Modifiers
-      // .games__text--title
-      &--title {
-        font-size: $fs-extra-large;
-        text-align: center;
-      }
-      // .games__text--gametime
-      &--gametime {
-        font-size: $fs-medium;
-        text-align: center;
-      }
+    // Modifiers
+    // .start-time__text--title
+    &--title {
+      font-size: $fs-extra-large;
+      text-align: center;
     }
-    // .games__group
-    &__group {
-      width: 100%;
+    // .start-time__text--gametime
+    &--gametime {
+      font-size: $fs-medium;
+      text-align: center;
     }
   }
+}
+
+// .week
+.week {
+  // Flex container
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 // .team
@@ -112,11 +112,9 @@
       flex: 1 1 0;
       // .team__text-container--away
       &--away {
-        text-align: left;
       }
       // .team__text-container--home
       &--home {
-        text-align: right;
       }
 
     }
@@ -139,10 +137,17 @@
   }
 
   // Modifiers
+  // .team--home
+  &--home {
+    text-align: right;
+
+    & > .team__logo {
+      order: 1;
+    }
+  }
   // .team--picked
   &--picked {
     outline: $border-picked $color-dark-blue;
-    
     // .team--picked.winner
     &.winner { background-color: $color-yellow; }
   }
