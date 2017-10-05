@@ -28,7 +28,10 @@
   // Elements
 
   // Modifiers
-
+  // .game--is-pickable
+  &--is-pickable {  }
+  // .game--is-frozen
+  &--is-frozen {  }
 }
 
 // .start-time
@@ -137,6 +140,10 @@
   }
 
   // Modifiers
+  // .team--away
+  &--away {
+    text-align: left;
+  }
   // .team--home
   &--home {
     text-align: right;
@@ -145,6 +152,8 @@
       order: 1;
     }
   }
+  // .team--is-disabled
+  &--is-disabled {  }
   // .team--picked
   &--picked {
     outline: $border-picked $color-dark-blue;

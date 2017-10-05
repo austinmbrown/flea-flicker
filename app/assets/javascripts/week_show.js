@@ -1,34 +1,50 @@
 window.addEventListener('load', function () {
   var Week ={
-    props: ['week', 'teams'],
+    props: ['week', 'teams', 'user_id'],
     template: `
       <div class="week">
-        <start-time id="start-time" :start_time="start_time" v-for="start_time in week" v-bind:key="start_time.id" :teams="teams"></start-time>
+        <start-time id="start-time" :start_time="start_time" v-for="start_time in week" v-bind:key="start_time.id" :teams="teams" :user_id="user_id" ></start-time>
         <!-- <game-details id="game" :game="game" v-for="(game, index) in week" v-bind:key="game.id"></game-details> -->
       </div>`
   };
 
   Vue.component('start-time', {
-    props: ['start_time', 'teams'],
+    props: ['start_time', 'teams', 'user_id'],
     template: `
       <div class="start-time">
         <div class="start-time__text start-time__text--gametime">{{ formatGameTime(start_time.gameTime) }}</div>
-        <game-details id="game" :game="game" v-for="game in start_time.games" v-bind:key="game.id" :teams="teams"></game-details>
+        <game-details id="game" :game="game" v-for="game in start_time.games" v-bind:key="game.id" :teams="teams" :hasBegun="determinePickability(start_time.gameTime)" :user_id="user_id" ></game-details>
       </div>`,
     methods: {
       formatGameTime: function (_gameTime) {
         return moment(_gameTime).format("[WK] ddd - hh:mmA");
+      },
+      determinePickability: function (_gameTime) {
+        return moment().diff(_gameTime, 'minutes') < 0;
       }
     }
   });
 
   Vue.component('game-details', {
-    props: ['game', 'teams'],
+    props: ['game', 'teams', 'hasBegun', 'user_id'],
     template: `
-      <div class="game">
-        <team-details id="team" :team="getTeamDataById(game.away_team_id)" :isHome="false"></team-details>
-        <team-details id="team" :team="getTeamDataById(game.home_team_id)" :isHome="true"></team-details>
+      <div class="game" v-bind:class="[hasBegun ? 'game--is-pickable' : 'game--is-frozen']">
+        <team-details id="team" :pick="pick" :team="getTeamDataById(game.away_team_id)" :isHome="false" :isDisabled="!hasBegun" :user_id="user_id" ></team-details>
+        <team-details id="team" :pick="pick" :team="getTeamDataById(game.home_team_id)" :isHome="true" :isDisabled="!hasBegun" :user_id="user_id" ></team-details>
       </div>`,
+    data: function() {
+      return { pick: {} }
+    },
+    mounted: function() {
+      let self = this;
+      find_pick_by_game_id_url = '/picks/' + self.game.id
+      $.ajax({
+        method: "GET",
+        url: find_pick_by_game_id_url,
+        success: (pick_data => {self.pick = pick_data}),
+        error: (error => {console.log(error)})
+      })
+    },
     methods: {
       getTeamDataById: function(_id) {
         let self = this;
@@ -41,18 +57,59 @@ window.addEventListener('load', function () {
   });
 
   Vue.component('team-details', {
-    props: ['team', 'isHome'],
+    props: ['team', 'isHome', 'isDisabled', 'user_id', 'pick'],
     template: `
-      <div class="team" v-bind:class="{ 'team--home': isHome }">
+      <!-- Have Vue tell Rails to create a pick if there is no pick -->
+      <!-- And maybe modify the pick if there is an existing pick -->
+      <!-- ALSO making a selection, doesn't dynamically refresh the pick data that's being passed through -->
+      <button class="team" v-on:click="createPick(user_id)" v-bind:disabled="isDisabled" v-bind:class="[[isHome ? 'team--home' : 'team--away'],{'team--picked' : isPicked}]">
         <div class="team__logo">
           <img src=""/>
         </div>
-        <div class="team__text-container team__text-container--away">
-          <div class="team__text team__text--name">{{ team.name }}</div>
-          <div class="team__text team__text--record">{{ team.wins }} - {{ team.losses }}</div>
+        <div class="team__text-container" v-bind:class="[isHome ? 'team__text-container--home' : 'team__text-container--away']">
+          <div class="team__text team__text--name">{{ getName(team) }}</div>
+          <div class="team__text team__text--record">{{ getWins(team) }} - {{ getLosses(team) }}</div>
+          <div>{{isPicked}}</div>
         </div>
-      </div>`,
-    methods: {  }
+      </button>`,
+    computed: {
+      isPicked: function() {
+        let self = this
+        if(self.pick && self.team)
+          return self.pick.picked_team_id === self.team.id
+        else
+          return false
+      }
+    },
+    methods: {
+      createPick: function (_userId, _isFavTeamPick) {
+        let self = this
+
+        gameId = self.$parent.game.id
+        teamId = self.team.id
+        userId = _userId
+        pickUrl = '/picks' + '?game_id=' + gameId + '&picked_team_id=' + teamId
+        if(_isFavTeamPick) {
+          pickUrl = pickUrl + '&fav_pick=' + true
+        }
+        console.log(gameId, teamId, userId, _isFavTeamPick)
+        console.log(pickUrl)
+        // [Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "pick"
+        $.ajax({
+          method: "POST",
+          url: pickUrl,
+          success: (pick_data => {self.pick = pick_data}),
+          error: (error => {console.log(error)})
+        })
+      },
+      // The weirdest thing is happening here
+      // _SOMETIMES_ Vue doesn't load team fast enough in the template
+      // So we get 32 warnings, and 32 undefineds before they load
+      // But not all the time. No love on SO yet, but I'll keep looking
+      getName: function (_team) { return _team.name },
+      getWins: function (_team) { return _team.wins },
+      getLosses: function (_team) { return _team.losses }
+    }
   });
 
   const vm_weeks_show = new Vue({
@@ -81,6 +138,7 @@ window.addEventListener('load', function () {
       let self = this;
       let weekUrl = "/weeks/" + thisWeek + ".json";
 
+      // Maybe I need to put the teams GET in a .then?
       $.ajax({
         method: "GET",
         url: weekUrl,
