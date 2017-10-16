@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   resources :weeks, only: [:index, :show]
   resources :teams, only: [:index, :show]
-  resources :picks, only: [:create, :destroy, :find_by_game_id]
-  resources :users, only: [:index]
+  resources :picks, only: [:create, :destroy, :find] do
+    get 'find', on: :collection
+  end
 
-  get 'picks/:game_id' => 'picks#find_pick_by_game_id', as: :find_pick_by_game_id
+  resources :users, only: [:index]
 
   root :to => redirect('/users/sign_in')
   devise_for :users, skip: [:registrations]

@@ -1,19 +1,18 @@
 window.addEventListener('load', function () {
   var Week ={
-    props: ['week', 'teams', 'user_id'],
+    props: ['week', 'user_id'],
     template: `
       <div class="week">
-        <start-time id="start-time" :start_time="start_time" v-for="start_time in week" v-bind:key="start_time.id" :teams="teams" :user_id="user_id" ></start-time>
-        <!-- <game-details id="game" :game="game" v-for="(game, index) in week" v-bind:key="game.id"></game-details> -->
+        <start-time id="start-time" :start_time="start_time" v-for="start_time in week" v-bind:key="start_time.id" :user_id="user_id" ></start-time>
       </div>`
   };
 
   Vue.component('start-time', {
-    props: ['start_time', 'teams', 'user_id'],
+    props: ['start_time', 'user_id'],
     template: `
       <div class="start-time">
         <div class="start-time__text start-time__text--gametime">{{ formatGameTime(start_time.gameTime) }}</div>
-        <game-details id="game" :game="game" v-for="game in start_time.games" v-bind:key="game.id" :teams="teams" :hasBegun="determinePickability(start_time.gameTime)" :user_id="user_id" ></game-details>
+        <game-details id="game" :game="game" v-for="game in start_time.games" v-bind:key="game.id" :hasBegun="determinePickability(start_time.gameTime)" :user_id="user_id" ></game-details>
       </div>`,
     methods: {
       formatGameTime: function (_gameTime) {
@@ -26,34 +25,42 @@ window.addEventListener('load', function () {
   });
 
   Vue.component('game-details', {
-    props: ['game', 'teams', 'hasBegun', 'user_id'],
+    props: ['game', 'hasBegun', 'user_id'],
     template: `
       <div class="game" v-bind:class="[hasBegun ? 'game--is-pickable' : 'game--is-frozen']">
-        <team-details id="team" :pick="pick" :team="getTeamDataById(game.away_team_id)" :isHome="false" :isDisabled="!hasBegun" :user_id="user_id" ></team-details>
-        <team-details id="team" :pick="pick" :team="getTeamDataById(game.home_team_id)" :isHome="true" :isDisabled="!hasBegun" :user_id="user_id" ></team-details>
+        <team-details id="team" :pick="pick" :team="awayTeam" :isHome="false" :isDisabled="!hasBegun" :user_id="user_id" ></team-details>
+        <team-details id="team" :pick="pick" :team="homeTeam" :isHome="true" :isDisabled="!hasBegun" :user_id="user_id" ></team-details>
       </div>`,
     data: function() {
-      return { pick: {} }
+      return {
+        pick: {},
+        awayTeam: {},
+        homeTeam: {}
+      }
     },
-    mounted: function() {
+    created: function() {
       let self = this;
-      find_pick_by_game_id_url = '/picks/' + self.game.id
       $.ajax({
         method: "GET",
-        url: find_pick_by_game_id_url,
+        url: "/teams/" + self.game.away_team_id + ".json",
+        success: (team_data => {self.awayTeam = team_data}),
+        error: (error => {console.log(error)})
+      })
+      $.ajax({
+        method: "GET",
+        url: "/teams/" + self.game.home_team_id + ".json",
+        success: (team_data => {self.homeTeam = team_data}),
+        error: (error => {console.log(error)})
+      })
+      find_pick_url = '/picks/find?game_id=' + self.game.id
+      $.ajax({
+        method: "GET",
+        url: find_pick_url,
         success: (pick_data => {self.pick = pick_data}),
         error: (error => {console.log(error)})
       })
     },
-    methods: {
-      getTeamDataById: function(_id) {
-        let self = this;
-        function isTeamMatch(element) {
-          return element.id == _id;
-        }
-        return self.teams.find(isTeamMatch);
-      }
-    }
+    methods: {  }
   });
 
   Vue.component('team-details', {
@@ -67,11 +74,13 @@ window.addEventListener('load', function () {
           <img src=""/>
         </div>
         <div class="team__text-container" v-bind:class="[isHome ? 'team__text-container--home' : 'team__text-container--away']">
-          <div class="team__text team__text--name">{{ getName(team) }}</div>
-          <div class="team__text team__text--record">{{ getWins(team) }} - {{ getLosses(team) }}</div>
-          <div>{{isPicked}}</div>
+          <div class="team__text team__text--name">{{ team.name }}</div>
+          <div class="team__text team__text--record">{{ team.wins }} - {{ team.losses }}</div>
         </div>
       </button>`,
+    mounted: function () {
+      let self = this
+    },
     computed: {
       isPicked: function() {
         let self = this
@@ -92,29 +101,27 @@ window.addEventListener('load', function () {
         if(_isFavTeamPick) {
           pickUrl = pickUrl + '&fav_pick=' + true
         }
-        console.log(gameId, teamId, userId, _isFavTeamPick)
-        console.log(pickUrl)
-        // [Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "pick"
-        $.ajax({
-          method: "POST",
-          url: pickUrl,
-          success: (pick_data => {self.pick = pick_data}),
-          error: (error => {console.log(error)})
-        })
-      },
-      // The weirdest thing is happening here
-      // _SOMETIMES_ Vue doesn't load team fast enough in the template
-      // So we get 32 warnings, and 32 undefineds before they load
-      // But not all the time. No love on SO yet, but I'll keep looking
-      getName: function (_team) { return _team.name },
-      getWins: function (_team) { return _team.wins },
-      getLosses: function (_team) { return _team.losses }
+        console.log(self.$parent.pick)
+        if(self.$parent.pick) {
+          $.ajax({
+            method: "DELETE",
+            url: '/picks/' + self.$parent.pick.id
+          }).then((r) => self.$parent.pick = null)
+        } else {
+          $.ajax({
+            method: "POST",
+            url: pickUrl,
+            success: (pick_data => {self.$parent.pick = pick_data}),
+            error: (error => {console.log(error)})
+          })
+        }
+      }
     }
   });
 
   const vm_weeks_show = new Vue({
     el: '#week',
-    mounted: function () {
+    created: function () {
       currentSearch = location.search;
 
       getCurrentlyViewedWeek = function() {
@@ -138,17 +145,10 @@ window.addEventListener('load', function () {
       let self = this;
       let weekUrl = "/weeks/" + thisWeek + ".json";
 
-      // Maybe I need to put the teams GET in a .then?
       $.ajax({
         method: "GET",
         url: weekUrl,
         success: (week_data => {self.week = week_data}),
-        error: (error => {console.log(error)})
-      })
-      $.ajax({
-        method: "GET",
-        url: "/teams.json",
-        success: (teams_data => {self.teams = teams_data}),
         error: (error => {console.log(error)})
       })
     },

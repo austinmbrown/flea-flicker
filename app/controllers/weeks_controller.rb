@@ -8,7 +8,6 @@ class WeeksController < ApplicationController
     week_number = params[:week] ? params[:week] : current_week
 
     favorite_team_game = current_user.favorite_team.find_game_by_week(week_number) if current_user.favorite_team
-    # week = Game.where(week: week_number)
   end
 
   # GET /weeks/1.json
