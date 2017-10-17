@@ -2,9 +2,9 @@
   <div id="week" class="l l-paper l-paper--week">
     <week :week="groupGamesByKickoff(week)" :user_id="<%= current_user.id %>"></week>
     <div class="button-group button-group--horizontal">
-      <a href="/weeks?week=" class="button button--game-navigation">< WK</a>
-      <a href="/weeks?week=" class="button button--game-navigation">WK</a>
-      <a href="/weeks?week=" class="button button--game-navigation">WK ></a>
+      <button v-on:click="goToWeek(getCurrentlyViewedWeek() - 1)" class="button button--game-navigation">< WK</button>
+      <button v-on:click="goToWeek()" class="button button--game-navigation">WK</button>
+      <button v-on:click="goToWeek(getCurrentlyViewedWeek() + 1)" class="button button--game-navigation">WK ></button>
     </div>
   </div>
 </div>

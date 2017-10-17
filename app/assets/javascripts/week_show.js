@@ -124,25 +124,9 @@ window.addEventListener('load', function () {
     created: function () {
       currentSearch = location.search;
 
-      getCurrentlyViewedWeek = function() {
-        weekNumber = parseInt(currentSearch.replace(/[^0-9\.]/g, ''), 10);
-        if (isNaN(weekNumber)) {
-          today = Date.now();
-          firstDay = Date.parse('Aug 22, 2017');
-          lastDay = Date.parse('Feb 22, 2018');
-
-          if (today < firstDay || today > lastDay) {
-            return
-          } else {
-            weekNumber = moment(today).startOf('week').diff(firstDay, 'weeks') - 1;
-          }
-        }
-        return weekNumber;
-      };
-
-      thisWeek = getCurrentlyViewedWeek();
-
       let self = this;
+
+      let thisWeek = self.getCurrentlyViewedWeek();
       let weekUrl = "/weeks/" + thisWeek + ".json";
 
       $.ajax({
@@ -186,9 +170,40 @@ window.addEventListener('load', function () {
           }
         }
         reversedWeek = week.reverse();
+
+        // Push favorite game here
         return reversedWeek;
+      },
+      getCurrentlyViewedWeek: function() {
+        weekNumber = parseInt(currentSearch.replace(/[^0-9\.]/g, ''), 10);
+
+        if (isNaN(weekNumber)) {
+          today = Date.now();
+          firstDay = Date.parse('Aug 22, 2017');
+          lastDay = Date.parse('Feb 22, 2018');
+
+          if (today < firstDay || today > lastDay) {
+            return
+          } else {
+            weekNumber = moment(today).startOf('week').diff(firstDay, 'weeks') - 1;
+          }
+        }
+        return weekNumber;
+      },
+      goToWeek: function(_weekNumber) {
+        let self = this;
+        let newUrl = '/weeks'
+        if(_weekNumber > 17 || _weekNumber < 1) {
+          // Not great UX, but works
+          return
+        }
+
+        if(_weekNumber) {
+          newUrl = '/weeks?week=' + _weekNumber;
+        }
+
+        location.href = newUrl;
       }
-    },
-    actions: {  }
+    }
   });
 })
