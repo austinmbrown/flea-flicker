@@ -6,8 +6,6 @@ class WeeksController < ApplicationController
     current_user.picks.unevaluated.each(&:evaluate)
 
     week_number = params[:week] ? params[:week] : current_week
-
-    favorite_team_game = current_user.favorite_team.find_game_by_week(week_number) if current_user.favorite_team
   end
 
   # GET /weeks/1.json

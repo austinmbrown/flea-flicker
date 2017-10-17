@@ -1,6 +1,6 @@
 window.addEventListener('load', function () {
   var Week ={
-    props: ['week', 'user_id'],
+    props: ['week', 'user_id', 'favorite_team_id'],
     template: `
       <div class="week">
         <start-time id="start-time" :start_time="start_time" v-for="start_time in week" v-bind:key="start_time.id" :user_id="user_id" ></start-time>
@@ -11,13 +11,10 @@ window.addEventListener('load', function () {
     props: ['start_time', 'user_id'],
     template: `
       <div class="start-time">
-        <div class="start-time__text start-time__text--gametime">{{ formatGameTime(start_time.gameTime) }}</div>
+        <div class="start-time__text start-time__text--gametime">{{ start_time.formattedGameTime }}</div>
         <game-details id="game" :game="game" v-for="game in start_time.games" v-bind:key="game.id" :hasBegun="determinePickability(start_time.gameTime)" :user_id="user_id" ></game-details>
       </div>`,
     methods: {
-      formatGameTime: function (_gameTime) {
-        return moment(_gameTime).format("[WK] ddd - hh:mmA");
-      },
       determinePickability: function (_gameTime) {
         return moment().diff(_gameTime, 'minutes') < 0;
       }
@@ -66,9 +63,7 @@ window.addEventListener('load', function () {
   Vue.component('team-details', {
     props: ['team', 'isHome', 'isDisabled', 'user_id', 'pick'],
     template: `
-      <!-- Have Vue tell Rails to create a pick if there is no pick -->
-      <!-- And maybe modify the pick if there is an existing pick -->
-      <!-- ALSO making a selection, doesn't dynamically refresh the pick data that's being passed through -->
+      <!-- maybe modify the pick if there is an existing pick -->
       <button class="team" v-on:click="createPick(user_id)" v-bind:disabled="isDisabled" v-bind:class="[[isHome ? 'team--home' : 'team--away'],{'team--picked' : isPicked}]">
         <div class="team__logo">
           <img src=""/>
@@ -101,12 +96,11 @@ window.addEventListener('load', function () {
         if(_isFavTeamPick) {
           pickUrl = pickUrl + '&fav_pick=' + true
         }
-        console.log(self.$parent.pick)
         if(self.$parent.pick) {
           $.ajax({
             method: "DELETE",
             url: '/picks/' + self.$parent.pick.id
-          }).then((r) => self.$parent.pick = null)
+          }).then(() => self.$parent.pick = null)
         } else {
           $.ajax({
             method: "POST",
@@ -143,18 +137,24 @@ window.addEventListener('load', function () {
       return { week: [], teams: [] }
     },
     methods: {
+      loadFavoriteTeamId: function(_team_id) {
+        let self = this
+        self.favoriteTeamId = _team_id
+      },
       groupGamesByKickoff: function(_gamesArray) {
+        let self = this;
 
         let makeKickoffObject = function (_id, _time) {
           newKickoffObject = {};
           newKickoffObject.id = _id;
           newKickoffObject.gameTime = _time;
+          newKickoffObject.formattedGameTime = moment(_time).format("[WK] ddd - hh:mmA")
           newKickoffObject.games = [];
           return newKickoffObject
         }
 
         let week = [];
-        let kickoff = makeKickoffObject(1, "To be overwritten");
+        let kickoff = makeKickoffObject(1, new Date());
 
         for (n = 0; n < _gamesArray.length; n++) {
           let thisGame = _gamesArray[n];
@@ -171,7 +171,20 @@ window.addEventListener('load', function () {
         }
         reversedWeek = week.reverse();
 
+
         // Push favorite game here
+        let filteredFaveArray = _gamesArray.filter(function (game) {
+          return game.home_team_id === self.favoriteTeamId || game.away_team_id === self.favoriteTeamId;
+        })
+        if (filteredFaveArray && filteredFaveArray.length > 0) {
+          favoriteTeamKickoff = {}
+          favoriteTeamKickoff.id = 100
+          favoriteTeamKickoff.gameTime = filteredFaveArray[0].kickoff
+          favoriteTeamKickoff.formattedGameTime = moment(filteredFaveArray[0].kickoff).format("[Fave] ddd - hh:mmA")
+          favoriteTeamKickoff.games = filteredFaveArray
+          reversedWeek.push(favoriteTeamKickoff)
+        }
+
         return reversedWeek;
       },
       getCurrentlyViewedWeek: function() {
@@ -202,6 +215,7 @@ window.addEventListener('load', function () {
           newUrl = '/weeks?week=' + _weekNumber;
         }
 
+        // Not sure if we need to do a full-page refresh, but that's what we're doing
         location.href = newUrl;
       }
     }
