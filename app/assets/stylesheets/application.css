@@ -19,7 +19,7 @@
  *= require lib/layout
  *= require lib/stripe
 
- *= require layout/game_selection
+ *= require layout/week_show
  *= require layout/login
  *= require layout/rankings
  */
